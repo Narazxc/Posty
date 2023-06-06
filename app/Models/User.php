@@ -49,4 +49,9 @@ class User extends Authenticatable
         // pass in the Post model to hasMany method
         return $this->hasMany(Post::class);
     }
+
+    public function likes()
+    {
+    return $this->hasMany(Like::class);
+    }
 }

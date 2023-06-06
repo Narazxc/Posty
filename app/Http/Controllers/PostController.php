@@ -13,7 +13,7 @@ class PostController extends Controller
         // $posts = Post::get(); // return Collection
 
         // Pagination
-        $posts = Post::paginate(20); // return LengthAwarePaginator also contain a Collection containing posts
+        $posts = Post::with('user', 'likes')->paginate(20); // return LengthAwarePaginator also contain a Collection containing posts
         return view('posts.index', [
             'posts' => $posts
         ]);
