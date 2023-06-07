@@ -13,7 +13,7 @@ class PostController extends Controller
         // $posts = Post::get(); // return Collection
 
         // Pagination
-        $posts = Post::with('user', 'likes')->paginate(20); // return LengthAwarePaginator also contain a Collection containing posts
+        $posts = Post::orderBy('created_at', 'desc')->with('user', 'likes')->paginate(20); // return LengthAwarePaginator also contain a Collection containing posts
         return view('posts.index', [
             'posts' => $posts
         ]);
@@ -40,6 +40,21 @@ class PostController extends Controller
         // $request->only('body') only method will return an array
     );
         
+        return back();
+    }
+
+
+    public function destroy(Post $post)
+    {
+        // Authorization, protecting at the controller level with policy
+        // After configure policy we can do this
+        // delete is the method name we define in PostPolicy, App\Policies\PostPolicy
+        // the User we get implicitly, but the post we want to pass in
+        $this->authorize('delete', $post); // this will throw exception and render 403 view
+
+        // We are working with Post model here
+        $post->delete();
+
         return back();
     }
 }

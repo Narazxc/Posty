@@ -15,7 +15,7 @@ class Post extends Model
     ];
 
     // Check if a paticular user has liked a post
-public function likedBy(User $user)
+    public function likedBy(User $user)
     {
         // accessing post and like relationship in the Post model
         return $this->likes->contains('user_id', $user->id); 

@@ -31,7 +31,17 @@
                         class="text-gray-600 text-sm">{{ $post->created_at->diffForHumans() }}</span>
                         <p class="mb-2">{{ $post->body }}</p>
 
-                        
+
+                        <!-- Delete button -->
+                        @can('delete', $post)
+                            <form action="{{ route('posts.destroy', $post) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-blue-500">Delete</button>
+                            </form>
+                        @endcan
+
+
                         <!-- Like and Unlike -->
                         <div class="flex items-center">
                             @auth
